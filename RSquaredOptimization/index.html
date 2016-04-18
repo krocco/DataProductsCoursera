@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Estimate Regression</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Estimate Regression">
+  <meta name="author" content="Peter Michael Crocco">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Estimate Regression</h1>
+    <h2>Eyeball a Regression line to minimize R-squared</h2>
+    <p>Peter Michael Crocco<br/>Coursera Data Products</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Depending on the shape of data, it can be difficult to estimate the line of linear regression and how close the data are fitted.</h2>
+  </hgroup>
+  <article data-timings="">
+    <h1>The published Shiny App allows the user to manipulate a coordinate upon which the line sits and the slope of the line, with feedback for \(R^2\) value (a measure of fit).</h1>
+
+<p>Try the app at: <a href="https://krocco.shinyapps.io/DataProducts/">https://krocco.shinyapps.io/DataProducts/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Load Data and Plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>mtcars</code> data is loaded and plotted as follows, showing the distribution of vehicle weight vs. miles per gallon:</p>
+
+<pre><code class="r">data(mtcars)
+plot(mtcars$mpg, mtcars$wt)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"></p>
+
+<p>It appears that the data is reasonably linear, so we can manipulate a linear regression line.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Fit a Regression Line</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The App takes input for X, Y, and slope. Then, using the equation for a line, the Y intercept is calculated to fully define the line in the form:
+y = mx + b</p>
+
+<pre><code class="r">X &lt;&lt;- 20 
+Y &lt;&lt;- 3.2
+slope &lt;&lt;- -0.14
+intercept &lt;&lt;- Y - slope*X
+print(paste(&#39;y = &#39;, slope, &#39;* x + &#39;, intercept))
+</code></pre>
+
+<pre><code>## [1] &quot;y =  -0.14 * x +  6&quot;
+</code></pre>
+
+<p>The line can be plotted over the data.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Calculate R<sup>2</sup></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Once the guessed line is defined, R<sup>2</sup> is calculated and displayed for the user.</p>
+
+<pre><code class="r">Rsquared = 1 - sum((mtcars$wt - (slope * mtcars$mpg + intercept))^2)/sum((mtcars$wt - Y)^2)
+
+print(paste(&#39;RSquared: &#39;, round(Rsquared, 2)))
+</code></pre>
+
+<pre><code>## [1] &quot;RSquared:  0.75&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Depending on the shape of data, it can be difficult to estimate the line of linear regression and how close the data are fitted.'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Load Data and Plot'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Fit a Regression Line'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Calculate R<sup>2</sup>'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
