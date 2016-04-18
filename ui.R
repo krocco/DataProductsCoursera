@@ -1,8 +1,6 @@
 
-# This is the user-interface definition of a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
+# Shiny app for Data Products on Coursera
+# Author: Peter Michael Crocco
 #
 
 library(shiny)
@@ -10,7 +8,7 @@ library(shiny)
 shinyUI(fluidPage(
 
   # Application title
-  titlePanel("Manipulate a Regression Line to Minimize R-squared"),
+  titlePanel("Manipulate a Regression Line to Maximize R-squared"),
 
   # Sidebar with slider inputs for regression line
   sidebarLayout(
